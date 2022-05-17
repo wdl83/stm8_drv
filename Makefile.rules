@@ -1,0 +1,18 @@
+OBJS = $(CSRCS:.c=.rel) 
+DST_OBJS = $(addprefix $(OBJ_DIR)/, $(OBJS))
+
+TARGETS = $(OBJ_DIR)/out/$(TARGET).ihx
+TARGETS += $(OBJ_DIR)/out/$(TARGET).map
+
+.PRECIOUS: $(OBJ_DIR)/%.rel
+
+all:: $(TARGETS)
+	echo $(TARGETS)
+
+$(OBJ_DIR)/out/%ihx: $(DST_OBJS)
+	mkdir -p "$(OBJ_DIR)/out/"
+	$(CC) $(LDFLAGS) -o $@ $^
+
+$(OBJ_DIR)/%.rel: %.c
+	mkdir -p "$(OBJ_DIR)/`dirname $<`"
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<  -D__TLOG_FILE__=\"$(shell basename $< .c)\"

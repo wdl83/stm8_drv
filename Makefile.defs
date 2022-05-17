@@ -1,0 +1,14 @@
+CC=sdcc
+MCU=stm8
+CPU_CLK=8000000
+
+CFLAGS = \
+		 -DCPU_CLK=$(CPU_CLK) \
+		 -m$(MCU) \
+		 --opt-code-size \
+		 --std-c99 \
+		 --Werror \
+		 --verbose
+
+LDFLAGS = \
+		  -m$(MCU)
