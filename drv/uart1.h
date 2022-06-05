@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "assert.h"
 #include "mem.h"
 #include "stm8_uart1.h"
 
@@ -12,8 +13,8 @@
 #define UART1_TX_DISABLE() UART1_CR2 &= ~M1(TEN)
 #define UART1_TX_ENABLED() (UART1_CR2 & M1(TEN))
 
-#define UART1_RX_ENABLE() UART1_CR2 |= M1( REN)
-#define UART1_RX_DISABLE() UART1_CR2 &= ~M1( REN)
+#define UART1_RX_ENABLE() UART1_CR2 |= M1(REN)
+#define UART1_RX_DISABLE() UART1_CR2 &= ~M1(REN)
 #define UART1_RX_ENABLED() (UART1_CR2 & M1(REN))
 
 #define CALC_BR(cpu_clk, bps) ((cpu_clk) / (bps))
@@ -41,6 +42,7 @@
 
 #define UART1_TX_COMPLETE_INT_ENABLE() UART1_CR2 |= M1(TCIEN)
 #define UART1_TX_COMPLETE_INT_DISABLE() UART1_CR2 &= ~M1(TCIEN)
+#define UART1_TX_COMPLETE_INT_ENABLED() (UART1_CR2 & M1(TCIEN))
 
 #define UART1_RX_INT_ENABLE() UART1_CR2 |= M1(RIEN)
 #define UART1_RX_INT_DISABLE() UART1_CR2 &= ~M1(RIEN)
@@ -53,7 +55,7 @@
 #define UART1_PARITY_ERROR() (UART1_SR & M1(PE))
 #define UART1_NOISE_FLAG() (UART1_SR & M1(NF))
 
-#define UART1_FOPN_ERRORS() (UART1_SR & M4(FE, OR, PE, NF))
+#define UART1_FOPN_ERRORS() (UART1_SR & M4(OR, NF, FE, PE))
 /*----------------------------------------------------------------------------*/
 #ifdef USART_DBG_CNTRS
 typedef union
@@ -85,32 +87,32 @@ typedef union
         uint8_t aborted : 1;
         uint8_t full : 1;
         uint8_t empty : 1;
-        uint8_t : 1;
-        uint8_t : 1;
-        uint8_t frame_error : 1;
+        uint8_t reserved : 1;
         uint8_t overrun_error : 1;
+        uint8_t noise_flag : 1;
+        uint8_t frame_error : 1;
         uint8_t parity_error : 1;
-    };
+    } bits;
 
     struct
     {
         uint8_t : 4;
-        uint8_t : 1;
-        uint8_t fop_errors : 3;
-    };
+        uint8_t fopn : 4;
+    } errors;
 
     uint8_t value;
 } uart_rxflags_t;
 
 typedef
     char uart_rxflags_str_t[
-        1 /* P  : parity error */ +
-        1 /* F  : frame error */ +
         1 /* O  : overrun error */ +
+        1 /* N  : noise flag */ +
+        1 /* F  : frame error */ +
+        1 /* P  : parity error */ +
         1 /* a  : aborted */ +
         1 /* f  : full */ +
         1 /* e  : empty */ +
-        2 /* \n\0 */];
+        1 /* \0 */];
 
 void uart_rxflags_str(uart_rxflags_str_t, const uart_rxflags_t *);
 
@@ -162,4 +164,7 @@ void uart1_async_recv_complete(void);
 void uart1_async_recv_cb(
     uart_rx_recv_cb_t recv_cb,
     uintptr_t user_data);
+
+void uart1_tx_irq(void) __interrupt(IRQ_NO_UART1_TX);
+void uart1_rx_irq(void) __interrupt(IRQ_NO_UART1_RX);
 /*----------------------------------------------------------------------------*/
