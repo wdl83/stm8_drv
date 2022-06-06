@@ -1,4 +1,4 @@
-#include "drv/tim4.h"
+#include "tim4.h"
 
 typedef struct
 {

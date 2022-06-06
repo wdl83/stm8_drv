@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include <drv/uart1.h>
+#include "uart1.h"
 
 /*----------------------------------------------------------------------------*/
 #ifdef UART_DBG_CNTRS
