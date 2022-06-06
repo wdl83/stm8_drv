@@ -8,8 +8,8 @@
 #define INTERRUPT_ENABLE() __asm__("rim")
 #define INTERRUPT_DISABLE() __asm__("sim")
 
-#ifdef STM8S003F3P6
-#include "stm8s003f3p6.h"
+#ifdef STM8S003F3
+#include "stm8s003f3.h"
 #else
 #error "unsupported device"
 #endif
