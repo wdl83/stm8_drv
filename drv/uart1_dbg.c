@@ -1,4 +1,4 @@
-#include "uart_dbg.h"
+#include "uart1_dbg.h"
 #include "util.h"
 
 void uart_cntrs_str(uart_cntrs_str_t str, const uart_cntrs_t *cntrs)
@@ -7,8 +7,8 @@ void uart_cntrs_str(uart_cntrs_str_t str, const uart_cntrs_t *cntrs)
         NULL == str
         || NULL == cntrs) return;
 
-    str = xprint8(str, cntrs->byte_cntr);
-    str = xprint8(str, cntrs->int_cntr);
+    str = xprint8(str, cntrs->bits.byte_cntr);
+    str = xprint8(str, cntrs->bits.int_cntr);
     *str++ = '\n';
     *str = '\0';
 }

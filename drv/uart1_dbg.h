@@ -4,8 +4,10 @@
 #include <stdint.h>
 
 #ifndef UART_DBG_CNTRS
-#define UART_DBG_CNTRS
+#error "Please define UART_DBG_CNTRS"
 #endif
+
+#include "uart1_async_rx.h"
 
 typedef union
 {
@@ -13,7 +15,7 @@ typedef union
     {
         uint8_t byte_cntr : 8;
         uint8_t int_cntr : 8;
-    };
+    }   bits;
     uint16_t value;
 } uart_cntrs_t;
 

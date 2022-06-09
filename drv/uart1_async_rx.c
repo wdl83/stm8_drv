@@ -2,6 +2,9 @@
 #include <string.h>
 
 #include "uart1_async_rx.h"
+#ifdef UART_DBG_CNTRS
+#include "uart1_dbg.h"
+#endif
 
 typedef struct
 {
@@ -100,7 +103,7 @@ void uart1_async_recv_cb(
 void uart1_rx_irq(void) __interrupt(IRQ_NO_UART1_RX)
 {
 #ifdef UART_DBG_CNTRS
-    ++rx1_cntrs_.int_cntr;
+    ++uart1_rx_cntrs()->bits.int_cntr;
 #endif /* UART_DBG_CNTRS */
     /* non-buffering continuous async mode */
     ASSERT(NULL == rx1_.end);
@@ -110,7 +113,7 @@ void uart1_rx_irq(void) __interrupt(IRQ_NO_UART1_RX)
     ASSERT(NULL != rx1_.recv_cb);
 
 #ifdef UART_DBG_CNTRS
-    ++rx1_cntrs_.byte_cntr;
+    ++uart1_rx_cntrs()->bits.byte_cntr;
 #endif /* UART_DBG_CNTRS */
     rx1_flags_.errors.fopn = UART1_FOPN_ERRORS();
     (*rx1_.recv_cb)(UART1_RD(), &rx1_flags_, rx1_.user_data);
@@ -121,7 +124,7 @@ void uart1_rx_irq(void) __interrupt(IRQ_NO_UART1_RX)
 void uart1_rx_irq(void) __interrupt(IRQ_NO_UART1_RX)
 {
 #ifdef UART_DBG_CNTRS
-    ++rx1_cntrs_.int_cntr;
+    ++uart1_rx_cntrs()->bits.int_cntr;
 #endif /* UART_DBG_CNTRS */
     /* non-buffering continuous async mode */
     if(NULL != rx1_.recv_cb)
@@ -132,7 +135,7 @@ void uart1_rx_irq(void) __interrupt(IRQ_NO_UART1_RX)
         ASSERT(NULL == rx1_.complete_cb);
 
 #ifdef UART_DBG_CNTRS
-        ++rx1_cntrs_.byte_cntr;
+        ++uart1_rx_cntrs()->bits.byte_cntr;
 #endif /* UART_DBG_CNTRS */
 
         rx1_flags_.errors.fopn = UART1_FOPN_ERRORS();
@@ -150,7 +153,7 @@ void uart1_rx_irq(void) __interrupt(IRQ_NO_UART1_RX)
         rx1_flags_.errors.fopn = UART1_FOPN_ERRORS();
         UART1_RX(*rx1_.next);
 #ifdef UART_DBG_CNTRS
-        ++rx1_cntrs_.byte_cntr;
+        ++uart1_rx_cntrs()->bits.byte_cntr;
 #endif /* UART_DBG_CNTRS */
         ++rx1_.next;
 

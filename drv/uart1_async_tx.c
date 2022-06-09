@@ -1,6 +1,9 @@
 #include <string.h>
 
 #include "uart1_async_tx.h"
+#ifdef UART_DBG_CNTRS
+#include "uart1_dbg.h"
+#endif
 
 typedef struct
 {
@@ -45,7 +48,7 @@ void on_tx_ready(void)
     ASSERT(NULL != tx1_.end);
 
 #ifdef UART_DBG_CNTRS
-    ++tx1_cntrs_.int_cntr;
+    ++uart1_tx_cntrs()->bits.int_cntr;
 #endif /* UART_DBG_CNTRS */
 
     while(
@@ -55,7 +58,7 @@ void on_tx_ready(void)
         UART1_TX(*tx1_.begin);
         ++tx1_.begin;
 #ifdef UART_DBG_CNTRS
-        ++tx1_cntrs_.byte_cntr;
+        ++uart1_tx_cntrs()->bits.byte_cntr;
 #endif /* UART_DBG_CNTRS */
     }
 
