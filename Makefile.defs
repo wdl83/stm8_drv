@@ -1,14 +1,16 @@
 CC=sdcc
+AR=sdar
 MCU=stm8
 CPU_CLK=8000000
+
+ARFLAGS = -rc
 
 CFLAGS = \
 		 -DCPU_CLK=$(CPU_CLK) \
 		 -m$(MCU) \
 		 --opt-code-size \
-		 --std-c99 \
-		 --Werror \
-		 --verbose
+		 --std-c11 \
+		 --Werror
 
 LDFLAGS = \
 		  -m$(MCU)
