@@ -17,9 +17,7 @@ typedef struct
     uintptr_t user_data;
 } rx_ctrl_t;
 
-static
 rx_ctrl_t rx1_;
-static
 uart_rxflags_t rx1_flags_;
 
 void uart1_async_recv(

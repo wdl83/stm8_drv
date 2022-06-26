@@ -13,7 +13,6 @@ typedef struct
     uintptr_t user_data;
 } tx_ctrl_t;
 
-static
 tx_ctrl_t tx1_;
 
 void uart1_async_send(
