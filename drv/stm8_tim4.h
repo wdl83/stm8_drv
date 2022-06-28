@@ -7,29 +7,29 @@
 #endif
 
 #define TIM4_CR1                                  STM8_REGISTER(TIM4_BASE, 0x00)
-#define ARPE 7
-#define OPM 3
-#define URS 2
-#define UDIS 1
-#define CEN 0
+#define CR1_ARPE 7
+#define CR1_OPM 3
+#define CR1_URS 2
+#define CR1_UDIS 1
+#define CR1_CEN 0
 
 #define TIM4_IER                                  STM8_REGISTER(TIM4_BASE, 0x03)
-#define TIE 6
-#define UIE 0
+#define IER_TIE 6
+#define IER_UIE 0
 
 #define TIM4_SR                                   STM8_REGISTER(TIM4_BASE, 0x04)
-#define TIF 6
-#define UIF 0
+#define SR_TIF 6
+#define SR_UIF 0
 
 #define TIM4_EGR                                  STM8_REGISTER(TIM4_BASE, 0x05)
-#define TG 6
-#define UG 0
+#define EGR_TG 6
+#define EGR_UG 0
 
 #define TIM4_CNTR                                 STM8_REGISTER(TIM4_BASE, 0x06)
 
 #define TIM4_PSCR                                 STM8_REGISTER(TIM4_BASE, 0x07)
-#define PSC2 2
-#define PSC1 1
-#define PSC0 0
+#define PSCR_PSC2 2
+#define PSCR_PSC1 1
+#define PSCR_PSC0 0
 
 #define TIM4_ARR                                  STM8_REGISTER(TIM4_BASE, 0x08)

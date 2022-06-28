@@ -1,12 +1,6 @@
 #include "tim4.h"
 
-typedef struct
-{
-    timer_cb_t cb;
-    uintptr_t user_data;
-} ctl_t;
-
-ctl_t tim4_ctl_;
+tim_ctl_t tim4_ctl_;
 
 void tim4_cb(timer_cb_t cb, uintptr_t user_data)
 {
