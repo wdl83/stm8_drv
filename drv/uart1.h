@@ -18,11 +18,12 @@
 #define CALC_BR(cpu_clk, bps) ((cpu_clk) / (bps))
 
 #define UART1_BR(br) \
-      UART1_BRR1 =  \
-      ((uint8_t)((UINT16_C(0x0FF0) & (br)) >> 4)), \
-      UART1_BRR2 = \
-      ((uint8_t)((UINT16_C(0xF000) & (br)) >> 12)) \
-       | ((uint8_t)(UINT16_C(0x00F) & (br)))
+    do { \
+        UART1_BRR1 = ((uint8_t)((UINT16_C(0x0FF0) & (br)) >> 4)); \
+        UART1_BRR2 = \
+            ((uint8_t)((UINT16_C(0xF000) & (br)) >> 12)) \
+            | ((uint8_t)(UINT16_C(0x00F) & (br))); \
+    } while(0)
 
 #define UART1_TX_READY() (UART1_SR & M1(SR_TXE))
 #define UART1_TX_COMPLETE() (UART1_SR & M1(SR_TC))
@@ -45,7 +46,12 @@
 #define UART1_RX_INT_ENABLE() UART1_CR2 |= M1(CR2_RIEN)
 #define UART1_RX_INT_DISABLE() UART1_CR2 &= ~M1(CR2_RIEN)
 
-#define UART1_PARITY_EVEN() UART1_CR1 &= ~M1(CR1_PS), UART1_CR1 |= M2(CR1_M, CR1_PCEN)
+#define UART1_PARITY_EVEN() \
+    do { \
+        UART1_CR1 &= ~M1(CR1_PS); \
+        UART1_CR1 |= M2(CR1_M, CR1_PCEN); \
+    } while(0)
+
 #define UART1_PARITY_ODD() UART1_CR1 |= M2(CR1_PCEN, CR1_PS)
 
 #define UART1_FRAME_ERROR() (UART1_SR & M1(SR_FE))

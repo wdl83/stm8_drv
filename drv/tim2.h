@@ -29,10 +29,18 @@
 #define TIM2_CLK_DIV_32K()    TIM2_PSCR = 15
 
 #define TIM2_RD_CNTR() (((uint16_t)TIM2_CNTRH << 8) | TIM2_CNTRL)
-#define TIM2_WR_CNTR(value) TIM2_CNTRH = (value) >> 8; TIM2_CNTRL = (value);
+#define TIM2_WR_CNTR(value) \
+    do { \
+        TIM2_CNTRH = (value) >> 8; \
+        TIM2_CNTRL = (value); \
+    } while(0)
 
 #define TIM2_RD_TOP() (((uint16_t)TIM2_ARRL << 8) | TIM2_ARRH)
-#define TIM2_WR_TOP(value) TIM2_ARRH = (value) >> 8; TIM2_ARRL = (value);
+#define TIM2_WR_TOP(value) \
+    do { \
+        TIM2_ARRH = (value) >> 8; \
+        TIM2_ARRL = (value); \
+    } while(0)
 
 #define TIM2_INT_ENABLE() TIM2_IER |= M1(UIE)
 #define TIM2_INT_DISABLE() TIM2_IER &= ~M1(UIE)

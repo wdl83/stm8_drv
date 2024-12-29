@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#define STM8_READ8(addr) (*(volatile uint8_t *)(addr))
+#define STM8_WRITE8(addr, data) ((*(volatile uint8_t *)(addr)) = (data))
 #define STM8_REGISTER(base, offset) (*(volatile uint8_t *)((base) + (offset)))
 #define ASSERT(cond)
 

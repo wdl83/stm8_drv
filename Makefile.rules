@@ -1,10 +1,10 @@
-OBJS = $(CSRCS:.c=.rel) 
+OBJS = $(CSRCS:.c=.rel)
 DST_OBJS = $(addprefix $(BUILD_DIR)/, $(OBJS))
 
-LIBS_OBJS = $(LIBS_CSRCS:.c=.rel) 
+LIBS_OBJS = $(LIBS_CSRCS:.c=.rel)
 DST_LIBS_OBJS = $(addprefix $(BUILD_DIR)/, $(LIBS_OBJS))
 
-LIBS = $(LIBS_CSRCS:.c=.lib) 
+LIBS = $(LIBS_CSRCS:.c=.lib)
 DST_LIBS = $(addprefix $(BUILD_DIR)/, $(LIBS))
 
 TARGETS = $(BUILD_DIR)/out/$(TARGET).ihx
@@ -17,7 +17,7 @@ $(BUILD_DIR)/out/%ihx: $(DST_LIBS) $(DST_OBJS)
 	mkdir -p "$(BUILD_DIR)/out/"
 	$(CC) $(LDFLAGS) -o $@ $(DST_LIBS) $(DST_OBJS)
 
-$(BUILD_DIR)/%.lib: $(BUILD_DIR)/%.rel 
+$(BUILD_DIR)/%.lib: $(BUILD_DIR)/%.rel
 	$(AR) $(ARFLAGS) $@ $^
 
 $(BUILD_DIR)/%.rel: %.c

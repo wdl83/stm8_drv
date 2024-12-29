@@ -31,3 +31,16 @@
 /*----------------------------------------------------------------------------*/
 #define PORT_F_BASE                                                       0x5019
 /*----------------------------------------------------------------------------*/
+#define EEPROM_BASE                                                       0x4000
+#define EEPROM_SIZE                                                          128
+/* WARNING: this extra EEPROM area is NOT documented by device datasheet
+ * STM8S003F3 STM8S003K3, DS7147 Rev 10
+ * However, its documented by following document (and is known to work):
+ * source: PM0051 Programming manual, page 25/27, Doc ID 14614 Rev 3
+ * 5 "Flash program memory and data EEPROM comparison", Table 9 */
+#define EEPROM_EXTRA_BASE                                                 0x4280
+#define EEPROM_EXTRA_SIZE                                                    512
+/*----------------------------------------------------------------------------*/
+#define FLASH_BASE                                                        0x505A
+#define FLASH_SIZE                                                          8192
+/*----------------------------------------------------------------------------*/

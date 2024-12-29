@@ -6,12 +6,12 @@ CPU_CLK=8000000
 ARFLAGS = -rc
 
 CFLAGS = \
-		 --Werror \
-		 --fverbose-asm \
-		 --opt-code-size \
-		 --std-c11 \
-		 -DCPU_CLK=$(CPU_CLK) \
-		 -m$(MCU)
+	--Werror \
+	--fverbose-asm \
+	--opt-code-size \
+	--std-c11 \
+	-DCPU_CLK=$(CPU_CLK) \
+	-m$(MCU)
 
 LDFLAGS = \
-		  -m$(MCU) 
+	 -m$(MCU) 

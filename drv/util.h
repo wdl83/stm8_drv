@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdint.h>
 
 char *xprint8(char *, uint8_t);

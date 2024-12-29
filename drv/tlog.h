@@ -2,11 +2,10 @@
 
 #ifdef TLOG_DISABLE
 
-#define TLOG_INIT(buf)
+#define TLOG_INIT(buf, size)
 #define TLOG_TP()
 #define TLOG_XPRINT8(str, value)
 #define TLOG_XPRINT16(str, value)
-
 #define TLOG_XPRINT2x8(str, value1, value2)
 
 #else
@@ -16,7 +15,7 @@
 
 #include "util.h"
 
-void tlog_init(char *buf);
+void tlog_init(char *buf, size_t capacity);
 void tlog_append(const char *, size_t);
 void tlog_printf(const char *, ...);
 void tlog_clear(void);
@@ -27,7 +26,7 @@ void tlog_dump(void);
 #define TO_STRING_IMPL(x) #x
 #define TO_STRING(x) TO_STRING_IMPL(x)
 
-#define TLOG_INIT(buf) tlog_init(buf)
+#define TLOG_INIT(buf, size) tlog_init(buf, size)
 
 #define TLOG_TP() \
     do \

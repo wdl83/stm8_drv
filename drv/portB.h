@@ -1,3 +1,5 @@
+#pragma once
+
 #include "stm8_portx.h"
 
 #ifndef PORT_B_BASE
